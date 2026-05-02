@@ -1,0 +1,70 @@
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px 14px;
+    margin-bottom: 12px;
+
+    background: #ffffff;
+    border-radius: 14px;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all 0.2s ease;
+}
+
+/* hover 효과 */
+.todo-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+
+/* priority (뱃지 느낌) */
+.priority {
+    min-width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 13px;
+
+    color: white;
+}
+
+/* 색상 */
+.priority.H {
+    background: linear-gradient(135deg, #ff4d4d, #ff0000);
+}
+
+.priority.M {
+    background: linear-gradient(135deg, #ffb347, #ff8c00);
+}
+
+.priority.L {
+    background: linear-gradient(135deg, #c0c0c0, #808080);
+}
+
+/* text */
+.text {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 500;
+    color: #222;
+}
+
+/* 날짜 */
+.createdAt {
+    font-size: 11px;
+    color: #aaa;
+}
+
+/* (선택) 완료 느낌 */
+.todo-item.completed .text {
+    text-decoration: line-through;
+    color: #bbb;
+}
