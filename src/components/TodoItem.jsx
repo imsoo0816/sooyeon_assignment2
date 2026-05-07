@@ -1,19 +1,20 @@
-function TodoItem({ text, createdAt, priority }) {
-    return (
-        <li className="todo-item">
-    <div className={`priority ${priority}`}>
-        {priority}
-    </div>
+import "../App.css";
 
-    <div className="text">
-        {text}
-    </div>
+function TodoItem({ text, done, priority, onDone }) {
+  const getPriorityClass = () => {
+    if (priority === "H") return "high";
+    if (priority === "M") return "medium";
+    if (priority === "L") return "low";
+  };
 
-    <div className="createdAt">
-        {createdAt}
-    </div>
-</li>
-    )
+  return (
+    <li
+      onClick={onDone}
+      className={`todo-item ${getPriorityClass()} ${done ? "done" : ""}`}
+    >
+      {text} ({priority})
+    </li>
+  );
 }
 
-export default TodoItem;    
+export default TodoItem;

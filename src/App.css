@@ -1,8 +1,75 @@
 
+.container {
+  width: 400px;
+  margin: 50px auto;
+  padding: 25px;
+  border-radius: 12px;
+  background-color: #f7f7f7;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.todo-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.priority-select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.add-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.add-button:hover {
+  transform: scale(1.05);
+}
+
+.filter-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.filter-button:hover {
+  background-color: #cfcfcf;
+}
 .todo-item {
     display: flex;
     align-items: center;
     gap: 12px;
+    cursor: pointer;
 
     padding: 12px 14px;
     margin-bottom: 12px;
@@ -67,4 +134,23 @@
 .todo-item.completed .text {
     text-decoration: line-through;
     color: #bbb;
+}
+
+
+/* 완료 상태 */
+.todo-item.done {
+  text-decoration: line-through;
+}
+
+/* priority별 스타일 */
+.todo-item.high {
+  background-color: #ffcccc;
+}
+
+.todo-item.medium {
+  background-color: #fff0b3;
+}
+
+.todo-item.low {
+  background-color: #ccffcc;
 }
