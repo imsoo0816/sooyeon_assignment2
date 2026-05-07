@@ -9,8 +9,11 @@
 }
 
 .title {
+    font-size: 40px;
+    color: #464646;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  font-weight: 700;
 }
 
 .input-group {
@@ -135,7 +138,9 @@
     text-decoration: line-through;
     color: #bbb;
 }
-
+ul{
+    padding: 0;
+}
 
 /* 완료 상태 */
 .todo-item.done {

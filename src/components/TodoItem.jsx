@@ -1,4 +1,4 @@
-import "../App.css";
+
 
 function TodoItem({ text, done, priority, onDone }) {
   const getPriorityClass = () => {
