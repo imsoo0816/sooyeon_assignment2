@@ -1,6 +1,6 @@
-
-
+// components/TodoItem.jsx
 function TodoItem({ text, done, priority, onDone }) {
+
   const getPriorityClass = () => {
     if (priority === "H") return "high";
     if (priority === "M") return "medium";
