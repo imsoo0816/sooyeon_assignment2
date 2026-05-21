@@ -1,0 +1,112 @@
+import { useState, useEffect } from "react";
+
+import TodoList from "../components/TodoList";
+
+function HomePage() {
+  const [todos, setTodos] = useState(() => {
+    const savedTodos =
+      localStorage.getItem("todos");
+
+    if (savedTodos) {
+      return JSON.parse(savedTodos);
+    }
+
+    return [];
+  });
+
+  const [input, setInput] = useState("");
+  const [filter, setFilter] = useState("all");
+  const [priority, setPriority] = useState("M");
+
+  useEffect(() => {
+    localStorage.setItem(
+      "todos",
+      JSON.stringify(todos)
+    );
+  }, [todos]);
+
+  const handleAdd = () => {
+    if (input.trim() === "") return;
+
+    const newTodo = {
+      id: Date.now(),
+      text: input,
+      done: false,
+      priority: priority,
+      createdAt: new Date(),
+    };
+
+    setTodos([...todos, newTodo]);
+    setInput("");
+  };
+
+  return (
+    <>
+      <h1 className="title">
+        ❤️나의 투두리스트❤️
+      </h1>
+
+      <div className="input-group">
+        <input
+          className="todo-input"
+          value={input}
+          onChange={(e) =>
+            setInput(e.target.value)
+          }
+          placeholder="할 일을 입력하세요"
+        />
+
+        <select
+          className="priority-select"
+          value={priority}
+          onChange={(e) =>
+            setPriority(e.target.value)
+          }
+        >
+          <option value="H">H</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+        </select>
+
+        <button
+          className="add-button"
+          onClick={handleAdd}
+        >
+          추가
+        </button>
+      </div>
+
+      <div className="filter-group">
+        <button
+          className="filter-button"
+          onClick={() => setFilter("all")}
+        >
+          전체
+        </button>
+
+        <button
+          className="filter-button"
+          onClick={() => setFilter("done")}
+        >
+          완료
+        </button>
+
+        <button
+          className="filter-button"
+          onClick={() => setFilter("undone")}
+        >
+          미완료
+        </button>
+      </div>
+
+      <TodoList
+        sectionTitle="Todo List"
+        todos={todos}
+        setTodos={setTodos}
+        filter={filter}
+      />
+    </>
+  );
+}
+
+export default HomePage;

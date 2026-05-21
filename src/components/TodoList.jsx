@@ -1,34 +1,49 @@
-// components/TodoList.jsx
 import TodoItem from "./TodoItem";
 
-function TodoList({ sectionTitle, todos, setTodos, filter }) {
-
+function TodoList({
+  sectionTitle,
+  todos,
+  setTodos,
+  filter,
+}) {
   const priorityOrder = {
     H: 3,
     M: 2,
-    L: 1
+    L: 1,
   };
 
-  const filteredTodos = todos.filter((todo) => {
-    if (filter === "done") return todo.done;
-    if (filter === "undone") return !todo.done;
-    return true;
-  });
+  const filteredTodos = todos.filter(
+    (todo) => {
+      if (filter === "done")
+        return todo.done;
 
-  const sortedTodos = [...filteredTodos].sort((a, b) => {
-    return priorityOrder[b.priority] - priorityOrder[a.priority];
+      if (filter === "undone")
+        return !todo.done;
+
+      return true;
+    }
+  );
+
+  const sortedTodos = [
+    ...filteredTodos,
+  ].sort((a, b) => {
+    return (
+      priorityOrder[b.priority] -
+      priorityOrder[a.priority]
+    );
   });
 
   const handleDone = (id) => {
     const updated = todos.map((todo) =>
       todo.id === id
-        ? { ...todo, done: !todo.done }
+        ? {
+            ...todo,
+            done: !todo.done,
+          }
         : todo
     );
 
     setTodos(updated);
-
-    console.log(updated);
   };
 
   return (
@@ -42,7 +57,9 @@ function TodoList({ sectionTitle, todos, setTodos, filter }) {
             text={todo.text}
             priority={todo.priority}
             done={todo.done}
-            onDone={() => handleDone(todo.id)}
+            onDone={() =>
+              handleDone(todo.id)
+            }
           />
         ))}
       </ul>

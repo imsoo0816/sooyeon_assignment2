@@ -1,16 +1,26 @@
-// components/TodoItem.jsx
-function TodoItem({ text, done, priority, onDone }) {
-
+function TodoItem({
+  text,
+  done,
+  priority,
+  onDone,
+}) {
   const getPriorityClass = () => {
-    if (priority === "H") return "high";
-    if (priority === "M") return "medium";
-    if (priority === "L") return "low";
+    if (priority === "H")
+      return "high";
+
+    if (priority === "M")
+      return "medium";
+
+    if (priority === "L")
+      return "low";
   };
 
   return (
     <li
       onClick={onDone}
-      className={`todo-item ${getPriorityClass()} ${done ? "done" : ""}`}
+      className={`todo-item
+      ${getPriorityClass()}
+      ${done ? "done" : ""}`}
     >
       {text} ({priority})
     </li>
