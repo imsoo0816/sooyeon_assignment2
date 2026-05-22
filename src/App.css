@@ -1,170 +1,287 @@
+body {
+  margin: 0;
+  padding: 0;
+
+  background: linear-gradient(
+    135deg,
+    #fff5f7
+  );
+
+  font-family: sans-serif;
+}
 
 .container {
-  width: 400px;
+  width: 420px;
+
   margin: 50px auto;
-  padding: 25px;
-  border-radius: 12px;
-  background-color: #f7f7f7;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  padding: 28px;
+
+  border-radius: 20px;
+
+  background-color: white;
+
+  box-shadow: 0 10px 30px
+    rgba(0, 0, 0, 0.08);
 }
 
 .title {
-    font-size: 40px;
-    color: #464646;
+  font-size: 38px;
+
+  color: #444;
+
   text-align: center;
+
   margin-bottom: 30px;
+
   font-weight: 700;
 }
 
+/* input */
+
 .input-group {
   display: flex;
+
   gap: 10px;
-  margin-bottom: 15px;
+
+  margin-bottom: 20px;
 }
 
 .todo-input {
   flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+
+  padding: 12px 14px;
+
+  border: 1px solid #ddd;
+
+  border-radius: 12px;
+
+  font-size: 15px;
+
+  outline: none;
+
+  transition: 0.2s;
 }
 
-.priority-select {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+.todo-input:focus {
+  border-color: #ff7eb3;
+
+  box-shadow: 0 0 0 4px
+    rgba(255, 126, 179, 0.15);
 }
 
 .add-button {
-  padding: 10px 15px;
+  padding: 12px 18px;
+
   border: none;
-  border-radius: 8px;
-  background-color: #4caf50;
+
+  border-radius: 12px;
+
+  background: linear-gradient(
+    135deg,
+    #ff7eb3,
+    #ff758c
+  );
+
   color: white;
+
+  font-weight: 700;
+
   cursor: pointer;
-  transition: 0.2s;
+
+  transition: all 0.2s ease;
 }
 
 .add-button:hover {
-  transform: scale(1.05);
+  transform: translateY(-2px);
+
+  box-shadow: 0 6px 16px
+    rgba(255, 117, 140, 0.3);
 }
+
+/* filter */
 
 .filter-group {
   display: flex;
+
   justify-content: center;
+
   gap: 10px;
-  margin-bottom: 20px;
+
+  margin-bottom: 25px;
 }
 
 .filter-button {
-  padding: 8px 14px;
+  padding: 9px 15px;
+
   border: none;
-  border-radius: 8px;
-  background-color: #e0e0e0;
+
+  border-radius: 10px;
+
+  background-color: #f3f3f3;
+
   cursor: pointer;
-  transition: 0.2s;
+
+  font-weight: 600;
+
+  transition: all 0.2s;
 }
 
 .filter-button:hover {
-  background-color: #cfcfcf;
+  background-color: #e8e8e8;
+
+  transform: translateY(-1px);
 }
+
+/* list */
+
+ul {
+  padding: 0;
+
+  margin: 0;
+}
+
 .todo-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
+  display: flex;
 
-    padding: 12px 14px;
-    margin-bottom: 12px;
+  align-items: center;
 
-    background: #ffffff;
-    border-radius: 14px;
+  gap: 12px;
 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    transition: all 0.2s ease;
+  padding: 14px 16px;
+
+  margin-bottom: 14px;
+
+  list-style: none;
+
+  background: #fff;
+
+  border-radius: 16px;
+
+  box-shadow: 0 4px 14px
+    rgba(0, 0, 0, 0.06);
+
+  transition: all 0.2s ease;
 }
 
-/* hover 효과 */
 .todo-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 20px
+    rgba(0, 0, 0, 0.1);
 }
 
-/* priority (뱃지 느낌) */
-.priority {
-    min-width: 32px;
-    height: 32px;
+/* custom checkbox */
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.todo-item input[type="checkbox"] {
+  appearance: none;
 
-    border-radius: 50%;
-    font-weight: bold;
-    font-size: 13px;
+  width: 20px;
+  height: 20px;
 
-    color: white;
+  border: 2px solid #ff7eb3;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  position: relative;
+
+  transition: all 0.2s ease;
+
+  background: white;
+
+  flex-shrink: 0;
 }
 
-/* 색상 */
-.priority.H {
-    background: linear-gradient(135deg, #ff4d4d, #ff0000);
+/* checked */
+
+.todo-item
+  input[type="checkbox"]:checked {
+  background: linear-gradient(
+    135deg,
+    #ff7eb3,
+    #ff758c
+  );
+
+  border: none;
 }
 
-.priority.M {
-    background: linear-gradient(135deg, #ffb347, #ff8c00);
-}
+/* check icon */
 
-.priority.L {
-    background: linear-gradient(135deg, #c0c0c0, #808080);
+.todo-item
+  input[type="checkbox"]:checked::after {
+  content: "✔";
+
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -55%);
+
+  color: white;
+
+  font-size: 12px;
+
+  font-weight: bold;
 }
 
 /* text */
-.text {
-    flex: 1;
-    font-size: 15px;
-    font-weight: 500;
-    color: #222;
+
+.todo-item span {
+  flex: 1;
+
+  font-size: 15px;
+
+  font-weight: 500;
+
+  color: #333;
+
+  transition: 0.2s;
 }
 
-/* 날짜 */
-.createdAt {
-    font-size: 11px;
-    color: #aaa;
-}
+/* completed */
 
-/* (선택) 완료 느낌 */
-.todo-item.completed .text {
-    text-decoration: line-through;
-    color: #bbb;
-}
-ul{
-    padding: 0;
-}
-
-/* 완료 상태 */
-.todo-item.done {
+.todo-item .done {
   text-decoration: line-through;
+
+  color: #bbb;
 }
 
-/* priority별 스타일 */
-.todo-item.high {
-  background-color: #ffcccc;
+/* delete button */
+
+.todo-item button {
+  border: none;
+
+  background: #ffe3ea;
+
+  color: #ff4f7b;
+
+  padding: 8px 12px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+
+  transition: 0.2s;
 }
 
-.todo-item.medium {
-  background-color: #fff0b3;
-}
+.todo-item button:hover {
+  background: #ffd2dc;
 
-.todo-item.low {
-  background-color: #ccffcc;
+  transform: scale(1.05);
 }
 
 /* navigation */
 
 .navigation {
   display: flex;
+
   justify-content: center;
+
   gap: 12px;
 
   margin-bottom: 30px;
@@ -175,14 +292,16 @@ ul{
 
   padding: 10px 18px;
 
-  border-radius: 10px;
+  border-radius: 12px;
 
   background-color: white;
+
   color: #555;
 
   font-weight: 600;
 
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px
+    rgba(0, 0, 0, 0.08);
 
   transition: all 0.2s ease;
 }
@@ -190,9 +309,10 @@ ul{
 .navigation a:hover {
   transform: translateY(-2px);
 
-  background-color: #f0f0f0;
+  background-color: #f8f8f8;
 
-  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 18px
+    rgba(0, 0, 0, 0.12);
 }
 
 .navigation a.active {

@@ -1,49 +1,66 @@
 import TodoItem from "./TodoItem";
 
+const BASE_URL = "https://congachu.dev";
+const STUDENT_CODE = "20245276";
+
 function TodoList({
   sectionTitle,
   todos,
-  setTodos,
   filter,
+  fetchTodos,
 }) {
-  const priorityOrder = {
-    H: 3,
-    M: 2,
-    L: 1,
-  };
-
   const filteredTodos = todos.filter(
     (todo) => {
       if (filter === "done")
-        return todo.done;
+        return todo.completed;
 
       if (filter === "undone")
-        return !todo.done;
+        return !todo.completed;
 
       return true;
     }
   );
 
-  const sortedTodos = [
-    ...filteredTodos,
-  ].sort((a, b) => {
-    return (
-      priorityOrder[b.priority] -
-      priorityOrder[a.priority]
-    );
-  });
+  const handleDone = async (
+    id,
+    completed
+  ) => {
+    try {
+      await fetch(
+        `${BASE_URL}/api/todos/${id}?code=${STUDENT_CODE}`,
+        {
+          method: "POST",
 
-  const handleDone = (id) => {
-    const updated = todos.map((todo) =>
-      todo.id === id
-        ? {
-            ...todo,
-            done: !todo.done,
-          }
-        : todo
-    );
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
 
-    setTodos(updated);
+          body: JSON.stringify({
+            completed: !completed,
+          }),
+        }
+      );
+
+      fetchTodos();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await fetch(
+        `${BASE_URL}/api/todos/${id}?code=${STUDENT_CODE}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      fetchTodos();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -51,14 +68,19 @@ function TodoList({
       <h2>{sectionTitle}</h2>
 
       <ul>
-        {sortedTodos.map((todo) => (
+        {filteredTodos.map((todo) => (
           <TodoItem
             key={todo.id}
-            text={todo.text}
-            priority={todo.priority}
-            done={todo.done}
+            content={todo.content}
+            completed={todo.completed}
             onDone={() =>
-              handleDone(todo.id)
+              handleDone(
+                todo.id,
+                todo.completed
+              )
+            }
+            onDelete={() =>
+              handleDelete(todo.id)
             }
           />
         ))}

@@ -2,24 +2,29 @@ import { useState, useEffect } from "react";
 
 import TodoList from "../components/TodoList";
 
+const BASE_URL = "https://congachu.dev";
+const STUDENT_CODE = "20245276";
+
 function ActivePage() {
   const [todos, setTodos] = useState([]);
 
-  useEffect(() => {
-    const savedTodos =
-      localStorage.getItem("todos");
+  const fetchTodos = async () => {
+    try {
+      const response = await fetch(
+        `${BASE_URL}/api/todos?code=${STUDENT_CODE}`
+      );
 
-    if (savedTodos) {
-      setTodos(JSON.parse(savedTodos));
+      const data = await response.json();
+
+      setTodos(data);
+    } catch (e) {
+      console.error(e);
     }
-  }, []);
+  };
 
   useEffect(() => {
-    localStorage.setItem(
-      "todos",
-      JSON.stringify(todos)
-    );
-  }, [todos]);
+    fetchTodos();
+  }, []);
 
   return (
     <div>
@@ -28,6 +33,7 @@ function ActivePage() {
         todos={todos}
         setTodos={setTodos}
         filter="undone"
+        fetchTodos={fetchTodos}
       />
     </div>
   );

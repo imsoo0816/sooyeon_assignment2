@@ -2,42 +2,59 @@ import { useState, useEffect } from "react";
 
 import TodoList from "../components/TodoList";
 
+const BASE_URL = "https://congachu.dev";
+const STUDENT_CODE = "20245276";
+
 function HomePage() {
-  const [todos, setTodos] = useState(() => {
-    const savedTodos =
-      localStorage.getItem("todos");
-
-    if (savedTodos) {
-      return JSON.parse(savedTodos);
-    }
-
-    return [];
-  });
+  const [todos, setTodos] = useState([]);
 
   const [input, setInput] = useState("");
   const [filter, setFilter] = useState("all");
-  const [priority, setPriority] = useState("M");
+
+  const fetchTodos = async () => {
+    try {
+      const response = await fetch(
+        `${BASE_URL}/api/todos?code=${STUDENT_CODE}`
+      );
+
+      const data = await response.json();
+
+      setTodos(data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   useEffect(() => {
-    localStorage.setItem(
-      "todos",
-      JSON.stringify(todos)
-    );
-  }, [todos]);
+    fetchTodos();
+  }, []);
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (input.trim() === "") return;
 
-    const newTodo = {
-      id: Date.now(),
-      text: input,
-      done: false,
-      priority: priority,
-      createdAt: new Date(),
-    };
+    try {
+      await fetch(
+        `${BASE_URL}/api/todos?code=${STUDENT_CODE}`,
+        {
+          method: "POST",
 
-    setTodos([...todos, newTodo]);
-    setInput("");
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+
+          body: JSON.stringify({
+            content: input,
+          }),
+        }
+      );
+
+      fetchTodos();
+
+      setInput("");
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -55,18 +72,6 @@ function HomePage() {
           }
           placeholder="할 일을 입력하세요"
         />
-
-        <select
-          className="priority-select"
-          value={priority}
-          onChange={(e) =>
-            setPriority(e.target.value)
-          }
-        >
-          <option value="H">H</option>
-          <option value="M">M</option>
-          <option value="L">L</option>
-        </select>
 
         <button
           className="add-button"
@@ -93,17 +98,20 @@ function HomePage() {
 
         <button
           className="filter-button"
-          onClick={() => setFilter("undone")}
+          onClick={() =>
+            setFilter("undone")
+          }
         >
           미완료
         </button>
       </div>
 
       <TodoList
-        sectionTitle="Todo List"
+        sectionTitle=""
         todos={todos}
         setTodos={setTodos}
         filter={filter}
+        fetchTodos={fetchTodos}
       />
     </>
   );

@@ -1,28 +1,28 @@
 function TodoItem({
-  text,
-  done,
-  priority,
+  content,
+  completed,
   onDone,
+  onDelete,
 }) {
-  const getPriorityClass = () => {
-    if (priority === "H")
-      return "high";
-
-    if (priority === "M")
-      return "medium";
-
-    if (priority === "L")
-      return "low";
-  };
-
   return (
-    <li
-      onClick={onDone}
-      className={`todo-item
-      ${getPriorityClass()}
-      ${done ? "done" : ""}`}
-    >
-      {text} ({priority})
+    <li className="todo-item">
+      <input
+        type="checkbox"
+        checked={completed}
+        onChange={onDone}
+      />
+
+      <span
+        className={
+          completed ? "done" : ""
+        }
+      >
+        {content}
+      </span>
+
+      <button onClick={onDelete}>
+        삭제
+      </button>
     </li>
   );
 }
